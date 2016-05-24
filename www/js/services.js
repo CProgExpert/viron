@@ -1,20 +1,27 @@
 angular.module('starter.services', [])
 
-/*.factory('Camera', function ($q) {
+.factory('HeatMap', function(){
+  var points = [
+    new google.maps.LatLng(13.13442,-59.6304048),
+    new google.maps.LatLng(13.13442,-59.6303048),
+    new google.maps.LatLng(13.13442,-59.6302048),
+    new google.maps.LatLng(13.134242,-59.6301048),
+    new google.maps.LatLng(13.134242,-59.6301048),
+    new google.maps.LatLng(13.134242,-59.6301048),
+    new google.maps.LatLng(13.134842,-59.6301038),
+    new google.maps.LatLng(13.134642,-59.6301028),
+    new google.maps.LatLng(13.134642,-59.6301028),
+    new google.maps.LatLng(13.134442,-59.6301018),
+    new google.maps.LatLng(13.134442,-59.6301018),
+    new google.maps.LatLng(13.134442,-59.6301018),
+    new google.maps.LatLng(13.134442,-59.6301018),
+  ];
   return {
-    getPicture: function (options) {
-      var q = $q.defer();
-      
-      navigator.camera.getPicture(function(result){
-        q.resolve(result);
-      }, function (err){
-        q.reject(err);
-      }, options);
-      
-      return q.promise;
+    all: function () {
+      return points;
     }
   };
-})*/
+})
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
