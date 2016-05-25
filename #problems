@@ -1,6 +1,11 @@
 #problems to be fixed
 
 - camera orientation
-- switch to post after image uploaded
-- real data instead of placeholders. connect real data to post
-- 
+- switch to post after image uploaded (implmented, not tested)
+- real data instead of placeholders. connect real data to post(implemented, not working)
+
+
+TO-DO
+app testing
+business model
+presentation
