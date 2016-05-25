@@ -48,7 +48,7 @@ angular.module('starter.controllers', [])
         img.src = image_source;
         input_src.value = image_source;
       }, function(error) {
-          console.error(error);
+        $ionicHistory.backView();
       });
   };
   
@@ -81,6 +81,7 @@ angular.module('starter.controllers', [])
       //send to server
       var posts = Posts;
       posts.push(newPost);
+      $scope.go('tab.posts');
     };
     $cordovaGeolocation.getCurrentPosition(options)
       .then(positionSuccess,

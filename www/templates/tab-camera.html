@@ -2,7 +2,7 @@
   <ion-content class="padding" data-ng-controller="CameraCtrl" data-ng-init="takePhoto()">
     <img src="http://placehold.it/350x250" id="myImage" width="100%" height="250px"/>
     <form>
-      <input type="hidden" id="img_src" ng-model="post.img" ng-init="post.img='http://placehold.it/350x250'">
+      <input type="hidden" id="img_src" ng-init="post.img='http://placehold.it/350x250'" ng-model="post.img" >
       <div class="list">
         <label class="item item-input">
           <input type="text" placeholder="Title" ng-model="post.title" ng-init="post.title=''" required>
