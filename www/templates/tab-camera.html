@@ -1,8 +1,8 @@
 <ion-view view-title="Camera">
-  <ion-content class="padding" data-ng-controller="CameraCtrl" data-ng-init="takePhoto()">
-    <img src="http://placehold.it/350x250" id="myImage" width="100%" height="250px"/>
+  <ion-content class="padding" data-ng-controller="CameraCtrl"  data-ng-init="takePhoto()">
+    <img src="http://placehold.it/350x250" id="myImage" style="max-width:100%;height:auto;object-fit:contain;"/>
     <form>
-      <input type="hidden" id="img_src" ng-init="post.img='http://placehold.it/350x250'" ng-model="post.img" >
+      <input type="text" ng-model="post.img" id="img_src" required style="display: none;"/>
       <div class="list">
         <label class="item item-input">
           <input type="text" placeholder="Title" ng-model="post.title" ng-init="post.title=''" required>

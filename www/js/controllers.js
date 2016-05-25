@@ -25,35 +25,42 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CameraCtrl', function ($scope, Posts, $ionicPopup, $ionicHistory, $cordovaCamera, $cordovaGeolocation){
+.controller('CameraCtrl', function ($scope, $state, Posts, $ionicPopup, $ionicHistory, $cordovaCamera, $cordovaGeolocation){
+  $scope.takePhoto = function () {
+    var options = {
+        quality : 75,
+        destinationType : 0,
+        sourceType : 1,
+        encodingType: 0,
+        allowEdit: false,
+        targetWidth: 350,
+        targetHeight: 250,
+        saveToPhotoAlbum: false,
+        correctOrientation: false
+    };
   
-   $scope.takePhoto = function() {
-      var options = {
-          quality : 75,
-          destinationType : 0,
-          sourceType : 1,
-          encodingType: 0,
-          allowEdit: false,
-          targetWidth: 250,
-          targetHeight: 350,
-          saveToPhotoAlbum: false,
-          correctOrientation: false
-      };
-
-      //TODO: Attach this to a comment
-      $cordovaCamera.getPicture(options).then(function(imageData) {
-        var image_source = "data:image/jpeg;base64," + imageData;
-        var img = document.getElementById('myImage');
-        var input_src = document.getElementById('img_src');
-        img.src = image_source;
-        input_src.value = image_source;
-      }, function(error) {
-        $ionicHistory.backView();
-      });
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      var image_source = "data:image/jpeg;base64," + imageData;
+      var img = document.getElementById('myImage');
+      var input_src = document.getElementById('img_src');
+      img.src = image_source;
+      if ($scope.post)
+      {
+        $scope.post.img = image_source;
+      }
+      else
+      {
+        $scope.post = {
+          img: image_source
+        };
+      }
+    }, function(error) {
+      $state.go('tab.posts');
+    });
   };
   
   $scope.createPost = function(post) {
-    console.log(JSON.stringify(post));
+    console.log(post)
     var newPost = {
       face: 'https://api.adorable.io/avatars/150/' + Math.random() + '@adorable.io.png',
       title: post.title,
@@ -69,7 +76,6 @@ angular.module('starter.controllers', [])
       ],
       comments: []
     };
-    
     var options = {
       timeout: 5000,
       enableHighAccuracy: false
@@ -81,7 +87,7 @@ angular.module('starter.controllers', [])
       //send to server
       var posts = Posts;
       posts.push(newPost);
-      $scope.go('tab.posts');
+      $state.go('tab.posts');
     };
     $cordovaGeolocation.getCurrentPosition(options)
       .then(positionSuccess,
