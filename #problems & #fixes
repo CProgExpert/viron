@@ -1,6 +1,6 @@
 #problems to be fixed
 
-- camera orientation
+
 - switch to post after image uploaded (implmented, not tested)
 - real data instead of placeholders. connect real data to post(implemented, not working)
 - login page [have first page visited be the login page]
@@ -10,3 +10,7 @@ TO-DO
 app testing
 business model
 presentation
+
+
+#fixed
+- camera orientation
