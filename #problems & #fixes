@@ -1,7 +1,7 @@
 #problems to be fixed
 
 
-- switch to post after image uploaded (implmented, not tested)
+- switch to post after image uploaded (implemented, not tested)
 - real data instead of placeholders. connect real data to post(implemented, not working)
 - login page [have first page visited be the login page]
 
