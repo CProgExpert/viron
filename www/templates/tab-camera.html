@@ -1,17 +1,17 @@
 <ion-view view-title="Camera">
   <ion-content class="padding" data-ng-controller="CameraCtrl" data-ng-init="takePhoto()">
     <img src="http://placehold.it/350x250" id="myImage" width="100%" height="250px"/>
-    <form ng-submit="createPost(post)">
-      <input type="hidden" id="img_src" ng-model="post.img">
+    <form>
+      <input type="hidden" id="img_src" ng-model="post.img" ng-init="post.img='http://placehold.it/350x250'">
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="Title" ng-model="post.title">
+          <input type="text" placeholder="Title" ng-model="post.title" ng-init="post.title=''" required>
         </label>
         <label class="item item-input">
-          <textarea placeholder="Caption" ng-model="post.caption"></textarea>
+          <textarea placeholder="Caption" ng-model="post.caption" ng-init="post.caption=''"  required></textarea>
         </label>
       </div>
+      <input type="submit" ng-click="createPost(post)" class="button button-block button-balanced" value="Submit">
     </form>
-    <button class="button button-block button-balanced">Submit</button>
   </ion-content>
 </ion-view>

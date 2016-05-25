@@ -7,15 +7,19 @@
           <h2>{{post.title}}</h2>
           <p>{{post.date}}</p>
         </div>
-
-        <div class="item item-body">
-          <img class="full-image" src="http://placehold.it/350x250">
-          <p>{{post.caption}}</p>
-          <p>
-            <a href="#" class="subdued">1 Like</a>
-            <a href="#" class="subdued">5 Comments</a>
-          </p>
-        </div>
+        <p class="item item-body">{{post.caption}}</p>
+        <ion-slide-box auto-play="true" slide-interval="2000" does-continue="true" show-pager="false">
+          <ion-slide ng-repeat="img in post.images">
+            <img class="full-image" ng-src="{{img.src}}">
+            <div ng-if="img.caption">
+              <p class="item item-body">{{img.caption}}</p>
+            </div>
+          </ion-slide>
+        </ion-slide-box>
+        <p class=item>
+          <a href="#" class="subdued">1 Like</a>
+          <a href="#" class="subdued">5 Comments</a>
+        </p>
       </div>
     </ion-list>
   </ion-content>

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'firebase'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -42,10 +42,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.camera', {
     url: '/camera',
+    cache: false,
     views: {
       'tab-camera': {
         templateUrl: 'templates/tab-camera.html',
-        controller: 'CameraCtrl'
+        controller: 'CameraCtrl',        
       }
     }
   })
@@ -66,15 +67,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         'tab-posts': {
           templateUrl: 'templates/tab-posts.html',
           controller: 'PostsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
         }
       }
     })

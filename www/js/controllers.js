@@ -1,7 +1,5 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
-
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -27,16 +25,19 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CameraCtrl', function ($scope, $stateParams, $cordovaCamera, $cordovaGeolocation){
+.controller('CameraCtrl', function ($scope, Posts, $ionicPopup, $ionicHistory, $cordovaCamera, $cordovaGeolocation){
+  
    $scope.takePhoto = function() {
       var options = {
           quality : 75,
           destinationType : 0,
           sourceType : 1,
           encodingType: 0,
+          allowEdit: false,
           targetWidth: 250,
           targetHeight: 350,
-          saveToPhotoAlbum: false
+          saveToPhotoAlbum: false,
+          correctOrientation: false
       };
 
       //TODO: Attach this to a comment
@@ -52,60 +53,109 @@ angular.module('starter.controllers', [])
   };
   
   $scope.createPost = function(post) {
+    console.log(JSON.stringify(post));
+    var newPost = {
+      face: 'https://api.adorable.io/avatars/150/' + Math.random() + '@adorable.io.png',
+      title: post.title,
+      caption: post.caption,
+      latitude: 0.00000,
+      longitude: 0.00000,
+      date_created: -Date.now(),
+      images: [
+        {
+          src: post.img,
+          caption: '' 
+        }
+      ],
+      comments: []
+    };
+    
     var options = {
       timeout: 5000,
       enableHighAccuracy: false
     }
+    var positionSuccess = function(position){
+      newPost.latitude = position.coords.latitude;
+      newPost.longitude = position.coords.longitude;
+      
+      //send to server
+      var posts = Posts;
+      posts.push(newPost);
+    };
     $cordovaGeolocation.getCurrentPosition(options)
-      .then(function(position){
-        post.latitude = position.coords.latitude;
-        post.longitude = position.coords.longitude;
-        
-        //send to server
+      .then(positionSuccess,
+      function () {
+        $ionicPopup.alert({
+          title:'Post Failed',
+          template: 'Cannot complete post because geolocation failed.'
+        })
       });
   };
+},
+function() {
+  $ionicHistory.backView();
 })
 
-.controller('MapCtrl', function($scope, $stateParams, HeatMap) {
+.controller('MapCtrl', function($scope, $stateParams, Posts, $ionicPopup) {
+  $scope.initMap = function () {
+    var myLatlng = new google.maps.LatLng(13.1704468,-59.6357891); //Sandy Lane Golf Course lol
 
-  var myLatlng = new google.maps.LatLng(13.1704468,-59.6357891); //Sandy Lane Golf Course lol
-
-  var mapOptions = {
-    center: myLatlng,
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.SATELLITE
-  };
-
-  var map = new google.maps.Map(document.getElementById("map"),mapOptions);
-  var heatmap = new google.maps.visualization.HeatmapLayer(
-    {
-      data: HeatMap.all(),
-      map: map,
-      radius: 20
-    }
-  );
-  navigator.geolocation.getCurrentPosition(function(pos) {
-      map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+    var mapOptions = {
+      center: myLatlng,
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+    document.getElementById("map").innerHTML = "";
+    var map = new google.maps.Map(document.getElementById("map"),mapOptions);
+    var heatmap = new google.maps.visualization.HeatmapLayer(
+      {
+        map: map,
+        radius: 20
+      }
+    );
+    var posts = Posts.all();
+    posts.$loaded().then(function (all_posts) {
+      var positions = [];
+      angular.forEach(all_posts, function (post){
+        positions.push(new google.maps.LatLng(post.latitude, post.longitude));
+      });
+      
+      heatmap.set('data', positions);
+    })
+    
+    $scope.map = map;
+    $scope.heatmap = heatmap;
+    
+    var positionSuccess = function (pos) {
+      var geoPos = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      map.setCenter(geoPos);
       var myLocation = new google.maps.Marker({
-          position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+          position: geoPos,
           map: map,
-          title: "My Location"
+          title: "You Are Here!"
       });
-
-      //Add infowindow
-      var infowindow = new google.maps.InfoWindow({
-        content: "You Are Here!"
-      });
-
-      //Display infowindow when user clicks on map marker
-      google.maps.event.addListener(myLocation, 'click', function() {
-        infowindow.open(map,myLocation);
-      });
-  });
-  $scope.map = map;
-  $scope.heatmap = heatmap;
+    };
+    
+    var positionFailed = function (error) {
+      $ionicPopup.alert({
+        title: 'Well this is embarrassing',
+        template: error.message
+      })
+    };
+    
+    setTimeout(function() { // Async call
+      navigator.geolocation.getCurrentPosition(
+        positionSuccess,
+        positionFailed,
+        {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: Infinity
+        }
+      );
+    }, 0);
+  };
   
-
   $scope.centerOnMe = function() {
       if(!$scope.map) {
           return;
@@ -119,8 +169,10 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PostsCtrl', function($scope) {
-  $scope.posts = [
+.controller('PostsCtrl', function($scope, Posts) {
+  var posts = Posts
+  $scope.posts = posts.all();
+  /*[
     {
       face: 'img\\adam.jpg',
       title: 'Lucka dis mess',
@@ -145,5 +197,5 @@ angular.module('starter.controllers', [])
       caption: 'Wanna think it right',
       date: '24 May, 2016'
     },
-  ];
+  ];*/
 });
