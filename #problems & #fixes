@@ -3,7 +3,7 @@
 
 - switch to post after image uploaded (implemented, not tested)
 - real data instead of placeholders. connect real data to post(implemented, not working)
-- login page [have first page visited be the login page]
+- login page [it is now the first page visited, but not functioning]
 
 
 TO-DO
