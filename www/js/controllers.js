@@ -15,8 +15,66 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('LoginCtrl', function($scope, $state, Users, $ionicLoading, $ionicPopup) {
+  $scope.login = function(user){
+    $ionicLoading.show({
+      template: 'Logging In'
+    });
+    Users.login({
+      email: user.email.$modelValue,
+      password: user.password.$modelValue
+    }, function(authData){
+      $ionicLoading.hide();
+      $state.go('tab.posts');
+    }, function(error){
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+          title:'Login Failed',
+          template: error
+        })
+    });
+  };
+  
+  $scope.signup = function(user){
+    $ionicLoading.show({
+      template: 'Signing In'
+    });
+    Users.signup({
+      email: user.email.$modelValue,
+      password: user.password.$modelValue
+    }, function(userData){
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+          title:'Sign-Up Successful',
+          template: 'Welcome to Environ!'
+        })
+    }, function(error){
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+          title:'Sign-Up Failed',
+          template: error
+        })
+    });
+  };
+  
+  $scope.resetPassword = function(user){
+    $ionicLoading.show({
+      template: 'Sending reset email...'
+    });
+    Users.resetPassword(user.email.$modelValue, function(userData){
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+          title:'Success',
+          template: 'Email Sent!'
+        })
+    }, function(error){
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+          title:'Failed',
+          template: error
+        })
+    });
+  };
 })
 
 .controller('AccountCtrl', function($scope) {
@@ -78,7 +136,8 @@ angular.module('starter.controllers', [])
     };
     var options = {
       timeout: 5000,
-      enableHighAccuracy: false
+      enableHighAccuracy: false,
+      maximumAge: Infinity
     }
     var positionSuccess = function(position){
       newPost.latitude = position.coords.latitude;
@@ -86,7 +145,10 @@ angular.module('starter.controllers', [])
       
       //send to server
       var posts = Posts;
-      posts.push(newPost);
+      if(!posts.push(newPost))
+      {
+        $state.go('login');
+      }
       $state.go('tab.posts');
     };
     $cordovaGeolocation.getCurrentPosition(options)
@@ -103,7 +165,7 @@ function() {
   $ionicHistory.backView();
 })
 
-.controller('MapCtrl', function($scope, $stateParams, Posts, $ionicPopup) {
+.controller('MapCtrl', function($scope, $stateParams, Posts, $ionicPopup, $cordovaGeolocation) {
   $scope.initMap = function () {
     var myLatlng = new google.maps.LatLng(13.1704468,-59.6357891); //Sandy Lane Golf Course lol
 
@@ -149,18 +211,20 @@ function() {
         template: error.message
       })
     };
-    
-    setTimeout(function() { // Async call
-      navigator.geolocation.getCurrentPosition(
-        positionSuccess,
-        positionFailed,
-        {
-          enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: Infinity
-        }
-      );
-    }, 0);
+    var options = {
+      enableHighAccuracy: false,
+      timeout: 5000,
+      maximumAge: Infinity
+    };
+    $cordovaGeolocation.getCurrentPosition(options)
+      .then(positionSuccess,
+      function () {
+        navigator.geolocation.getCurrentPosition(
+          positionSuccess,
+          positionFailed,
+          options
+        );
+      });
   };
   
   $scope.centerOnMe = function() {
@@ -176,33 +240,53 @@ function() {
   };
 })
 
-.controller('PostsCtrl', function($scope, Posts) {
-  var posts = Posts
-  $scope.posts = posts.all();
-  /*[
-    {
-      face: 'img\\adam.jpg',
-      title: 'Lucka dis mess',
-      caption: 'Wanna think it right',
-      date: '24 May, 2016'
-    },
-    {
-      face: 'img\\ben.png',
-      title: 'As I walk to town',
-      caption: 'Wanna think it right',
-      date: '24 May, 2016'
-    },
-    {
-      face: 'img\\adam.jpg',
-      title: 'Out day by de warth',
-      caption: 'Wanna think it right',
-      date: '24 May, 2016'
-    },
-    {
-      face: 'img\\max.png',
-      title: 'It smell bad',
-      caption: 'Wanna think it right',
-      date: '24 May, 2016'
-    },
-  ];*/
+.controller('PostsCtrl', function($scope, $state, Posts) {
+  $scope.commentCount = function(comments) {
+    if (!comments || comments == undefined)
+      return 0;
+    return Object.keys(comments).length;
+  };
+  
+  $scope.getDate = function (time){
+    var d = new Date(-time);
+    var months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    
+    var year = d.getFullYear();
+    var month = months[d.getMonth()-1];
+    var date = d.getDate();
+    var time = date + ' ' + month + ', ' + year;
+    return time;
+  }
+  
+  $scope.createComment = function(comment, key) {
+    console.log(comment);
+    if (!Posts.pushComment(comment.postid.$modelValue, {
+      title: comment.ctitle.$modelValue ? comment.ctitle.$modelValue : '',
+      caption: comment.caption.$modelValue
+    })){
+      $state.go('login');
+    }
+    
+    if (!$scope.comment_sent)
+      $scope.comment_sent = [];
+    $scope.comment_sent[key] = true;
+  };
+  var postsDb = Posts.all();
+  
+  postsDb.$loaded().then(function(posts) {
+    $scope.posts = posts;
+    console.log(posts)
+  });
 });

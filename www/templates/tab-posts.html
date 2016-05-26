@@ -1,11 +1,11 @@
 <ion-view view-title="Posts">
   <ion-content>
     <ion-list>
-      <div class="list card" ng-repeat="post in posts" >
+      <div class="list card" ng-repeat="(key, post) in posts">
         <div class="item item-avatar">
           <img ng-src="{{post.face}}">
           <h2>{{post.title}}</h2>
-          <p>{{post.date}}</p>
+          <p>{{getDate(post.date_created)}}</p>
         </div>
         <p class="item item-body">{{post.caption}}</p>
         <ion-slide-box auto-play="true" slide-interval="2000" does-continue="true" show-pager="false">
@@ -16,10 +16,39 @@
             </div>
           </ion-slide>
         </ion-slide-box>
-        <p class=item>
-          <a href="#" class="subdued">1 Like</a>
-          <a href="#" class="subdued">5 Comments</a>
-        </p>
+        <button class="button button-full button-lightborder" ng-init="hide[key]=true" ng-click="hide[key]=false">{{commentCount(post.comments)}} Comments</button>
+        <div ng-hide="hide[key]">
+          <form name="comment[{{key}}]" novalidate ng-if="!comment_sent[key]">
+            <input type="text" name="postid" ng-model="postid" ng-init="postid=post.$id" style="display:none"/>
+            <div class="card">
+              <div class="item item-divider">
+                New Comment
+              </div>
+              <label class="item item-input">
+                <input type="text" placeholder="Title" name="ctitle" ng-model="ctitle">
+              </label>
+              <label class="item item-input">
+                <textarea placeholder="Caption" name="caption" ng-model="caption" required></textarea>
+              </label>              
+              <div class="padding">
+                <p ng-show="comment[key].title.$error.required">* Title is required</p>
+                <p ng-show="comment[key].caption.$error.required">* Caption is required</p>
+              </div>
+              <input type="submit" class="button button-block button-balanced" value="Submit" ng-disabled="comment[key].$invalid" ng-click="createComment(comment[key], key)"/>
+            </div>
+          </form>
+          <div class="card"  ng-if="comment_sent[key]">
+            <div class="item text-center">
+              Comment Sent!
+            </div>
+            <button class="button button-block button-balanced" ng-click="comment_sent[key]=false">New Comment</button>
+          </div>
+          <div class="item" ng-repeat="comment in post.comments">
+            <h2>{{comment.title}}</h2>
+            <p>{{comment.caption}}</p>
+          </div>
+          <button class="button button-full icon-bottom ion-chevron-up button-lightborder" ng-click="hide[key]=true"></button>
+        <div>
       </div>
     </ion-list>
   </ion-content>

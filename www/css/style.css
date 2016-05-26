@@ -9,3 +9,31 @@
 .scroll {
     height: 100%;
 }
+.button-lightborder{
+  border-color: #ddd;
+  background-color: transparent;
+  color: #444;
+}
+
+.backg{
+    background-image: url("../img/ladybug.png");
+}
+.backg ion-content{
+  background: rgba(0,0,0, 0.5);
+}
+
+#login-list{
+  background: rgba(255, 255, 255, 0.8); 
+  margin-top: 20%;
+}
+#login-list .item{
+  background: transparent;
+}
+
+#logo{
+  margin-top: 15%;
+  color:white;
+  font-family: 'Poppins', 'Muli', 'Roboto', 'Cambay', 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 4em;
+}
