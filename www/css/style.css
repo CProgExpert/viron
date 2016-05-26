@@ -16,17 +16,29 @@
 }
 
 .backg{
-    background-image: url("../img/ladybug.png");
+    background-image: url("../img/autumn.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    
 }
 .backg ion-content{
   background: rgba(0,0,0, 0.5);
 }
 
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: pink;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: pink;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: pink;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: pink;
+}
+
 #login-list{
-  background: rgba(255, 255, 255, 0.8); 
+  background: rgba(255, 255, 255, 0.8);
   margin-top: 20%;
 }
 #login-list .item{
