@@ -17,6 +17,9 @@
 
 .backg{
     background-image: url("../img/ladybug.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
 }
 .backg ion-content{
   background: rgba(0,0,0, 0.5);
