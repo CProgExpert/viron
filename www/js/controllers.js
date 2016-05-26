@@ -25,7 +25,7 @@ angular.module('starter.controllers', [])
       password: user.password.$modelValue
     }, function(authData){
       $ionicLoading.hide();
-      $state.go('tab.posts');
+      $state.go('tab.map');
     }, function(error){
       $ionicLoading.hide();
       $ionicPopup.alert({
