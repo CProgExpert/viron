@@ -18,6 +18,10 @@
         </ion-slide-box>
         <button class="button button-full button-balanced" ng-init="hide[key]=true" ng-click="hide[key]=false">{{commentCount(post.comments)}} Comments</button>
         <div ng-hide="hide[key]">
+          <div class="item" ng-repeat="comment in post.comments">
+            <h2>{{comment.title}}</h2>
+            <p>{{comment.caption}}</p>
+          </div>
           <form name="comment[{{key}}]" novalidate ng-if="!comment_sent[key]">
             <input type="text" name="postid" ng-model="postid" ng-init="postid=post.$id" style="display:none"/>
             <div class="card">
@@ -42,11 +46,7 @@
               Comment Sent!
             </div>
             <button class="button button-block button-balanced" ng-click="comment_sent[key]=false">New Comment</button>
-          </div>
-          <div class="item" ng-repeat="comment in post.comments">
-            <h2>{{comment.title}}</h2>
-            <p>{{comment.caption}}</p>
-          </div>
+          </div>          
           <button class="button button-full icon-bottom ion-chevron-up button-lightborder" ng-click="hide[key]=true"></button>
         <div>
       </div>
