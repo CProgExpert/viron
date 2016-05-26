@@ -77,7 +77,16 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope, $state, Users) {
+  $scope.logout = function () {
+    Users.logout();
+    $state.go('login');
+  };
+  $scope.community_points = 0;
+  var user = Users.getUserObject();
+  user.$loaded(function(data){
+    $scope.community_points = data.community_points;
+  });
   $scope.settings = {
     enableFriends: true
   };
@@ -94,7 +103,7 @@ angular.module('starter.controllers', [])
         targetWidth: 350,
         targetHeight: 250,
         saveToPhotoAlbum: false,
-        correctOrientation: false
+        correctOrientation: true
     };
   
     $cordovaCamera.getPicture(options).then(function(imageData) {

@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Users', function($firebaseAuth){
+.factory('Users', function($firebaseAuth, $firebaseObject){
   
   var ref = new Firebase('https://environ-test.firebaseio.com/');
   var userRef = ref.child('users');
@@ -53,6 +53,13 @@ angular.module('starter.services', [])
         return null;
       
       return userRef.child(auth.uid);
+    },
+    getUserObject: function(){
+      var auth = ref.getAuth();
+      if (!auth)
+        return null;
+      
+      return $firebaseObject(userRef.child(auth.uid));
     }
    
   };

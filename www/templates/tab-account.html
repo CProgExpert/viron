@@ -1,9 +1,17 @@
 <ion-view view-title="Account">
+  <ion-nav-buttons side="right">
+      <a class="button button-icon icon ion-android-exit" ng-click="logout()"></a>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+      <ion-item>
+        <i class="icon ion-star"></i>
+        Community Points
+        <span class="badge badge-balanced">{{community_points}}</span>
+      </ion-item>
+      <ion-item>
+        <button class="button button-block button-balanced" ng-click="logout()">Sign-Out</button>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>
