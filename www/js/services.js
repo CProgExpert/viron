@@ -58,7 +58,7 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('Posts', function ($firebaseArray, Users) {
+.factory('Posts', function ($firebaseArray, Users, $firebaseObject) {
   var postsRef = new Firebase('https://environ-test.firebaseio.com/posts');
   var _posts = $firebaseArray(postsRef.orderByChild('date_created'));
   return {
@@ -66,25 +66,27 @@ angular.module('starter.services', [])
       return _posts;
     },
     push: function(post){
-      var user = Users.getUser();
-      if (!user)
+      var userRef = Users.getUser();
+      if (!userRef)
         return false;
-        
+      
+      var user = $firebaseObject(userRef);
       post.userid = user.$id;
       postsRef.push().set(post);
-      user.child('community_points').transaction(function(community_points) {
+      userRef.child('community_points').transaction(function(community_points) {
         return community_points+5;
       });
       return true;
     },
     pushComment: function(id, comment){
-      var user = Users.getUser();
-      if (!user)
+      var userRef = Users.getUser();
+      if (!userRef)
         return false;
-        
+      
+      var user = $firebaseObject(userRef);
       comment.userid = user.$id;
       postsRef.child(id).child('comments').push().set(comment);
-      user.child('community_points').transaction(function(community_points) {
+      userRef.child('community_points').transaction(function(community_points) {
         return community_points+1;
       });
       return true;
