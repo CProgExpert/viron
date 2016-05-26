@@ -46,7 +46,7 @@ angular.module('starter.controllers', [])
       $ionicLoading.hide();
       $ionicPopup.alert({
           title:'Sign-Up Successful',
-          template: 'Welcome to Environ!'
+          template: 'Welcome to Viron!'
         })
     }, function(error){
       $ionicLoading.hide();
