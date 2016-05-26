@@ -33,7 +33,8 @@
 #logo{
   margin-top: 15%;
   color:white;
-  font-family: 'Poppins', 'Muli', 'Roboto', 'Cambay', 'Open Sans', sans-serif;
+  /*font-family: 'Poppins', 'Muli', 'Roboto', 'Cambay', 'Open Sans', sans-serif;*/
+  font-family: 'Julius Sans One',sans-serif;
   font-weight: 600;
   font-size: 4em;
 }
