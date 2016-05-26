@@ -3,7 +3,7 @@
 
 - switch to post after image uploaded (implemented, not tested)
 - real data instead of placeholders. connect real data to post(implemented, not working)
-- login page [it is now the first page visited, but not functioning]
+- login page [after first 3 tries, highlght forgot password(maybe, a lot of code to do)]
 
 
 TO-DO
