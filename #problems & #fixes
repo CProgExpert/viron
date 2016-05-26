@@ -1,9 +1,7 @@
 #problems to be fixed
 
 
-- switch to post after image uploaded (implemented, not tested)
 - switch to post after uploading comment OR show comment in post after uploading
-- real data instead of placeholders. connect real data to post(implemented, not working)
 - login page [after first 3 tries, highlght forgot password(maybe, a lot of code to do)]
 
 They may ask about the email if we have it set as valid email addresses.
@@ -15,7 +13,7 @@ TO-DO
 app testing
 business model
 presentation
-User Information (ID,Email,Salted Password etc)
+
 
 Simple regular expression to validate email address
  <script type="text/javascript">
