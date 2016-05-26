@@ -2,8 +2,10 @@
 
 
 - switch to post after image uploaded (implemented, not tested)
+- switch to post after uploading comment OR show comment in post after uploading
 - real data instead of placeholders. connect real data to post(implemented, not working)
 - login page [after first 3 tries, highlght forgot password(maybe, a lot of code to do)]
+
 
 
 TO-DO
