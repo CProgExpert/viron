@@ -1,14 +1,14 @@
 <ion-view view-title="Login" class="backg">
   <ion-content class="padding" scroll="false">
 
-    <h1 id="logo" class="text-center">environ</h1>
+    <h1 id="logo" class="text-center">VIRON</h1>
     <!--<img class="test" src="../img/ladybug.png">-->
 
     <form name="user" novalidate>
       <div class="list list-inset" id="login-list">
         <label class="item item-input">
           <i class="icon ion-email placeholder-icon"></i>
-          <input type="text" placeholder="Email" name="email" ng-model="email" required>
+          <input type="email" placeholder="Email" name="email" ng-model="email" required>
         </label>
         <label class="item item-input">
           <i class="icon ion-locked placeholder-icon"></i>
@@ -25,7 +25,7 @@
       <div class="button-bar bar-balanced">
         <!--<input class="button " type="submit" value="Login" ng-click="login(user)" ng-disabled="user.$invalid">-->
         <input class="button" type="submit" value="Sign-Up" ng-click="signup(user)" ng-disabled="user.$invalid">
-        <input class="button" type="button" value="Forgot Pass" ng-click="resetPassword(user)" ng-disabled="user.email.$error.required">
+<!--LOOK AT THIS LINE OF CODE-->        <input class="button" type="button" value="Forgot Pass" ng-click="resetPassword(user)" ng-disabled="user.email.$error.required">
         <!--<input class="button " type="submit" value="Sign-Up" ng-click="signup(user)" ng-disabled="user.$invalid">-->
       </div>
 
