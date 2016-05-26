@@ -66,7 +66,7 @@ angular.module('starter.services', [])
       return _posts;
     },
     push: function(post){
-      var user = User.getUser();
+      var user = Users.getUser();
       if (!user)
         return false;
         
@@ -78,7 +78,7 @@ angular.module('starter.services', [])
       return true;
     },
     pushComment: function(id, comment){
-      var user = User.getUser();
+      var user = Users.getUser();
       if (!user)
         return false;
         
