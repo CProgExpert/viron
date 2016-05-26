@@ -1,5 +1,5 @@
 <ion-view view-title="Posts">
-  <ion-content>
+  <ion-content id="post_content">
     <ion-list>
       <div class="list card" ng-repeat="(key, post) in posts">
         <div class="item item-avatar">
@@ -16,7 +16,7 @@
             </div>
           </ion-slide>
         </ion-slide-box>
-        <button class="button button-full button-lightborder" ng-init="hide[key]=true" ng-click="hide[key]=false">{{commentCount(post.comments)}} Comments</button>
+        <button class="button button-full button-balanced" ng-init="hide[key]=true" ng-click="hide[key]=false">{{commentCount(post.comments)}} Comments</button>
         <div ng-hide="hide[key]">
           <form name="comment[{{key}}]" novalidate ng-if="!comment_sent[key]">
             <input type="text" name="postid" ng-model="postid" ng-init="postid=post.$id" style="display:none"/>

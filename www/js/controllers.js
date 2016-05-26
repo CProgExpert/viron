@@ -131,14 +131,14 @@ angular.module('starter.controllers', [])
     var newPost = {
       face: 'https://api.adorable.io/avatars/150/' + Math.random() + '@adorable.io.png',
       title: post.title,
-      caption: post.caption,
+      caption: '',
       latitude: 0.00000,
       longitude: 0.00000,
       date_created: -Date.now(),
       images: [
         {
           src: post.img,
-          caption: '' 
+          caption: post.caption 
         }
       ],
       comments: []

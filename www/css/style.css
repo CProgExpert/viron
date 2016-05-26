@@ -53,3 +53,9 @@
   font-weight: 600;
   font-size: 4em;
 }
+
+#post_content{
+    background: #555;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
