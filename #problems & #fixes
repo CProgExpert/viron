@@ -6,6 +6,9 @@
 - real data instead of placeholders. connect real data to post(implemented, not working)
 - login page [after first 3 tries, highlght forgot password(maybe, a lot of code to do)]
 
+They may ask about the email if we have it set as valid email addresses.
+  maybe we can use an email text box
+
 
 
 TO-DO
