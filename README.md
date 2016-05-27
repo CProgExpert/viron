@@ -20,16 +20,16 @@ __Research & User Experience Design__             :-Shanice Waterman
 
 #How to run Viron on your mobile device
 1. Install Ionic View:
-[![Get It on Google Play](http://www.scubaearth.com/uploadedImages/General_Site_Content/Outward_facing_Pages/google_play_icon.png {width=40px height=400px})](https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en)
-[![Available on the iPhone](http://uncw.edu/admissions/images/AppStore.png {width=40px height=400px})](https://itunes.apple.com/us/app/ionic-view/id849930087?ls=1&mt=8)
+[<img src="http://www.scubaearth.com/uploadedImages/General_Site_Content/Outward_facing_Pages/google_play_icon.png" alt="Available on the iPhone" height="60px" width="190px"/>](https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en)
+[<img src="http://uncw.edu/admissions/images/AppStore.png" alt="Available on the iPhone" height="60px" width="190px"/>](https://itunes.apple.com/us/app/ionic-view/id849930087?ls=1&mt=8)
 
 2. Navigate to Preview App and enter the code: *7E2397B1*
 
 3. Load and launch the App
 
 #Screenshots
-![alt text](https://github.com/topblast/viron/blob/dev/www/img/viron_login.png "Viron Login View" {width=200px height=352px})
-![alt text](https://github.com/topblast/viron/blob/dev/www/img/viron_map.png "Viron Map View" {width=200px height=352px})
-![alt text](https://github.com/topblast/viron/blob/dev/www/img/viron_posts.png "Viron Posts View" {width=200px height=352px})
-![alt text](https://github.com/topblast/viron/blob/dev/www/img/viron_camera.png "Viron Camera View" {width=200px height=352px})
-![alt text](https://github.com/topblast/viron/blob/dev/www/img/viron_account.png "Viron Account View" {width=200px height=352px})
+<img src="./www/img/viron_login.png" alt="Viron Login View" height="352px" width="200px"/>
+<img src="./www/img/viron_map.png" alt="Viron Map View" height="352px" width="200px"/>
+<img src="./www/img/viron_posts.png" alt="Viron Posts View" height="352px" width="200px"/>
+<img src="./www/img/viron_camera.png" alt="Viron Camera View" height="352px" width="200px"/>
+<img src="./www/img/viron_account.png" alt="Viron Account View" height="352px" width="200px"/>
