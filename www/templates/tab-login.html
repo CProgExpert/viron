@@ -1,0 +1,32 @@
+<ion-view view-title="Login" class="backg" hide-nav-bar="true">
+  <ion-content class="padding" scroll="false">
+
+    <h1 id="logo" class="text-center">VIRON</h1>
+    <!--<img class="test" src="../img/ladybug.png">-->
+
+    <form name="user" novalidate>
+      <div class="list list-inset" id="login-list">
+        <label class="item item-input">
+          <i class="icon ion-email placeholder-icon"></i>
+          <input type="email" placeholder="Email" name="email" ng-model="email" required>
+        </label>
+        <label class="item item-input">
+          <i class="icon ion-locked placeholder-icon"></i>
+          <input type="password" placeholder="Password" name="password" ng-model="password" required>
+        </label>
+        <div class="item">
+          <p ng-show="user.email.$error.required">* Email is required</p>
+          <p ng-show="user.email.$error.email">* Email is invalid</p>
+          <p ng-show="user.password.$error.required">* Password is required</p>
+        </div>
+      </div>
+
+      <div class="button-bar bar-light">
+        <input class="button  button-light button-balanced" type="submit" value="Login" ng-click="login(user)" ng-disabled="user.$invalid">
+        <input class="button" type="button" value="Forgot Pass" ng-click="resetPassword(user)" ng-disabled="user.email.$error.email||user.email.$error.required">
+      </div>
+
+    </form>
+    <div class="backg"></div>
+  </ion-content>
+</ion-view>

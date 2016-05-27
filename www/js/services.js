@@ -14,6 +14,7 @@ angular.module('starter.services', [])
         }
         else{
           userRef.child(authData.uid).child('face').set(authData.password.profileImageURL);
+          this.email = authData.password.email;
           callback(authData);
         }
       });
@@ -30,6 +31,18 @@ angular.module('starter.services', [])
           callback(userData);
         }
       });
+    },
+    changePassword: function(obj, callback, errorCallback){
+      if (!this.email)
+        return false;
+      obj.email = this.email;
+      ref.changePassword(obj, function(error){
+        if (error) {
+          errorCallback(error);
+        } else {
+          callback();
+        }
+      })
     },
     resetPassword: function(email, callback, errorCallback){
       ref.resetPassword(email, function(error){
@@ -97,6 +110,14 @@ angular.module('starter.services', [])
         return community_points+1;
       });
       return true;
+    },
+    reportPost: function(id){
+      var user = Users.getUserObject();
+      if (!user)
+        return false;
+      
+      postsRef.child(id).child('reports').child(user.$id).set(true);
+      return true
     }
   }
 });

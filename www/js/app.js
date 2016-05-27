@@ -22,7 +22,37 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
 })
+.directive('passwordVerify', function() {
+   return {
+      require: "ngModel",
+      scope: {
+        passwordVerify: '='
+      },
+      link: function(scope, element, attrs, ctrl) {
+        scope.$watch(function() {
+            var combined;
 
+            if (scope.passwordVerify || ctrl.$viewValue) {
+               combined = scope.passwordVerify + '_' + ctrl.$viewValue; 
+            }                    
+            return combined;
+        }, function(value) {
+            if (value) {
+                ctrl.$parsers.unshift(function(viewValue) {
+                    var origin = scope.passwordVerify;
+                    if (origin !== viewValue) {
+                        ctrl.$setValidity("passwordVerify", false);
+                        return undefined;
+                    } else {
+                        ctrl.$setValidity("passwordVerify", true);
+                        return viewValue;
+                    }
+                });
+            }
+        });
+     }
+   };
+})
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -37,12 +67,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
+  .state('lgtab', {
+    url: '/lgtab',
+    abstract: true,
+    templateUrl: 'templates/login-tabs.html'
+  })
 
   // Each tab has its own nav history stack:
-  .state('login', {
+  .state('lgtab.login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'LoginCtrl'
+    views: {
+      'tab-login': {
+        templateUrl: 'templates/tab-login.html',
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+  
+  .state('lgtab.signup', {
+    url: '/signup',
+    views: {
+      'tab-signup': {
+        templateUrl: 'templates/tab-signup.html',
+        controller: 'LoginCtrl'
+      }
+    }
   })
   
   .state('tab.camera', {
@@ -87,6 +136,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/lgtab/login');
 
 });

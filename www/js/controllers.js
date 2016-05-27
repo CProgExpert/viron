@@ -1,20 +1,5 @@
 angular.module('starter.controllers', [])
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
 .controller('LoginCtrl', function($scope, $state, Users, $ionicLoading, $ionicPopup) {
   $scope.login = function(user){
     $ionicLoading.show({
@@ -48,6 +33,7 @@ angular.module('starter.controllers', [])
           title:'Sign-Up Successful',
           template: 'Welcome to Viron!'
         })
+      $state.go('lgtab.login');
     }, function(error){
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -61,7 +47,9 @@ angular.module('starter.controllers', [])
     $ionicLoading.show({
       template: 'Sending reset email...'
     });
-    Users.resetPassword(user.email.$modelValue, function(userData){
+    Users.resetPassword({
+      email: user.email.$modelValue
+    }, function(userData){
       $ionicLoading.hide();
       $ionicPopup.alert({
           title:'Success',
@@ -77,18 +65,37 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('AccountCtrl', function($scope, $state, Users) {
+.controller('AccountCtrl', function($scope, $state, $ionicPopup, Users) {
   $scope.logout = function () {
     Users.logout();
-    $state.go('login');
+    $state.go('lgtab.login');
   };
   $scope.community_points = 0;
   var user = Users.getUserObject();
   user.$loaded(function(data){
     $scope.community_points = data.community_points;
   });
-  $scope.settings = {
-    enableFriends: true
+  $scope.changePassword = function(cp){
+    if (!Users.changePassword({
+      oldPassword: cp.password.$modelValue,
+      newPassword: cp.newpassword.$modelValue
+    },
+    function () {
+      $ionicPopup.alert({
+        title: 'Success',
+        template: 'Password Changed!'
+      });
+    }, function(error){
+      $ionicPopup.alert({
+        title: 'Password Change Failed',
+        template: error
+      });
+    })){
+      $ionicPopup.alert({
+        title: 'Password Change Failed',
+        template: 'Unexpected error, Please contact the administration.'
+      });
+    }
   };
 })
 
@@ -127,7 +134,6 @@ angular.module('starter.controllers', [])
   };
   
   $scope.createPost = function(post) {
-    console.log(post)
     var newPost = {
       face: 'https://api.adorable.io/avatars/150/' + Math.random() + '@adorable.io.png',
       title: post.title,
@@ -156,7 +162,12 @@ angular.module('starter.controllers', [])
       var posts = Posts;
       if(!posts.push(newPost))
       {
-        $state.go('login');
+        $ionicPopup.alert({
+          title: 'Alert',
+          template: 'Your login session has expired.'
+        })
+        $state.go('lgtab.login');
+        return;
       }
       $state.go('tab.posts');
     };
@@ -249,7 +260,7 @@ function() {
   };
 })
 
-.controller('PostsCtrl', function($scope, $state, Posts) {
+.controller('PostsCtrl', function($scope, $state, Posts, $ionicPopup) {
   $scope.commentCount = function(comments) {
     if (!comments || comments == undefined)
       return 0;
@@ -278,14 +289,32 @@ function() {
     var time = date + ' ' + month + ', ' + year;
     return time;
   }
+  $scope.report = function(id){
+    if (!Posts.reportPost(id)) {
+      $ionicPopup.alert({
+        title: 'Alert',
+        template: 'Your login session has expired.'
+      })
+      $state.go('lgtab.login');
+      return;
+    }
+    $ionicPopup.alert({
+      title: 'Report',
+      template: 'Your report has been sent.'
+    })
+  };
   
   $scope.createComment = function(comment, key) {
-    console.log(comment);
     if (!Posts.pushComment(comment.postid.$modelValue, {
       title: comment.ctitle.$modelValue ? comment.ctitle.$modelValue : '',
       caption: comment.caption.$modelValue
     })){
-      $state.go('login');
+      $ionicPopup.alert({
+        title: 'Alert',
+        template: 'Your login session has expired.'
+      })
+      $state.go('lgtab.login');
+      return;
     }
     
     if (!$scope.comment_sent)
@@ -296,6 +325,5 @@ function() {
   
   postsDb.$loaded().then(function(posts) {
     $scope.posts = posts;
-    console.log(posts)
   });
 });

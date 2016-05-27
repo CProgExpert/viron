@@ -16,7 +16,10 @@
             </div>
           </ion-slide>
         </ion-slide-box>
-        <button class="button button-full button-balanced" ng-init="hide[key]=true" ng-click="hide[key]=false">{{commentCount(post.comments)}} Comments</button>
+        <div class="row">
+          <div class="col col-75"><button class="button button-full button-balanced" ng-init="hide[key]=true" ng-click="hide[key]=false">{{commentCount(post.comments)}} Comments</button></div>
+          <div class="col"><button class="button button-full button-energized" ng-click="report(post.$id)"><i class="icon ion-alert-circled icon-right"></i></button></div>
+        </div>
         <div ng-hide="hide[key]">
           <div class="item" ng-repeat="comment in post.comments">
             <h2>{{comment.title}}</h2>

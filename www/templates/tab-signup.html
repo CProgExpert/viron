@@ -1,4 +1,4 @@
-<ion-view view-title="Login" class="backg" hide-nav-bar="true">
+<ion-view view-title="Sign-Up" class="backg" hide-nav-bar="true">
   <ion-content class="padding" scroll="false">
 
     <h1 id="logo" class="text-center">VIRON</h1>
@@ -14,21 +14,20 @@
           <i class="icon ion-locked placeholder-icon"></i>
           <input type="password" placeholder="Password" name="password" ng-model="password" required>
         </label>
+        <label class="item item-input">
+          <i class="icon ion-locked placeholder-icon"></i>
+          <input type="password" placeholder="Confirm Password" name="conpassword" ng-model="conpassword" required data-password-verify="password">
+        </label>
         <div class="item">
           <p ng-show="user.email.$error.required">* Email is required</p>
+          <p ng-show="user.email.$error.email">* Email is invalid</p>
           <p ng-show="user.password.$error.required">* Password is required</p>
+          <p ng-show="user.conpassword.$error.required">* Confirm Password is required</p>
+          <p ng-show="user.conpassword.$error.passwordVerify">* Passwords do not match</p>
         </div>
       </div>
 
-      <input class="button button-block button-light button-balanced" type="submit" value="Login" ng-click="login(user)" ng-disabled="user.$invalid">
-
-      <div class="button-bar bar-light">
-        <!--<input class="button " type="submit" value="Login" ng-click="login(user)" ng-disabled="user.$invalid">-->
-        <input class="button" type="submit" value="Sign-Up" ng-click="signup(user)" ng-disabled="user.$invalid">
-<!--LOOK AT THIS LINE OF CODE-->        <input class="button" type="button" value="Forgot Pass" ng-click="resetPassword(user)" ng-disabled="user.email.$error.required">
-        <!--<input class="button " type="submit" value="Sign-Up" ng-click="signup(user)" ng-disabled="user.$invalid">-->
-      </div>
-
+      <input class="button button-block button-light button-balanced" type="submit" value="Sign-Up" ng-click="signup(user)" ng-disabled="user.$invalid">
     </form>
     <div class="backg"></div>
   </ion-content>
