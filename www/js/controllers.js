@@ -70,11 +70,9 @@ angular.module('starter.controllers', [])
     Users.logout();
     $state.go('lgtab.login');
   };
+  
   $scope.community_points = 0;
-  var user = Users.getUserObject();
-  user.$loaded(function(data){
-    $scope.community_points = data.community_points;
-  });
+  
   $scope.changePassword = function(cp){
     if (!Users.changePassword({
       oldPassword: cp.password.$modelValue,
@@ -97,6 +95,18 @@ angular.module('starter.controllers', [])
       });
     }
   };
+  
+  var user = Users.getUserObject();
+  user.$loaded(function(data){
+    $scope.community_points = data.community_points;
+  });
+  
+  $scope.$on('$ionicView.enter', function() {
+    var user = Users.getUserObject();
+    user.$loaded(function(data){
+      $scope.community_points = data.community_points;
+    });
+  });
 })
 
 .controller('CameraCtrl', function ($scope, $state, Posts, $ionicPopup, $ionicHistory, $cordovaCamera, $cordovaGeolocation){
@@ -129,7 +139,7 @@ angular.module('starter.controllers', [])
         };
       }
     }, function(error) {
-      $state.go('tab.posts');
+      $state.go('tab.posts', {}, {reload: true});
     });
   };
   
@@ -236,6 +246,18 @@ function() {
       timeout: 5000,
       maximumAge: Infinity
     };
+    $scope.$on('$ionicView.enter', function() {
+      var posts = Posts.all();
+      posts.$loaded().then(function (all_posts) {
+        var positions = [];
+        angular.forEach(all_posts, function (post){
+          positions.push(new google.maps.LatLng(post.latitude, post.longitude));
+        });
+        
+        heatmap.set('data', positions);
+      })
+      google.maps.event.trigger($scope.map, "resize");
+    });
     $cordovaGeolocation.getCurrentPosition(options)
       .then(positionSuccess,
       function () {
@@ -284,7 +306,7 @@ function() {
     ];
     
     var year = d.getFullYear();
-    var month = months[d.getMonth()-1];
+    var month = months[d.getMonth()];
     var date = d.getDate();
     var time = date + ' ' + month + ', ' + year;
     return time;
@@ -325,5 +347,11 @@ function() {
   
   postsDb.$loaded().then(function(posts) {
     $scope.posts = posts;
+  });
+  $scope.$on('$ionicView.enter', function() {
+    var posts = Posts.all();
+    posts.$loaded().then(function (all_posts) {
+      $scope.posts = all_posts;
+    })
   });
 });

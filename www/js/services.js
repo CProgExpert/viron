@@ -5,6 +5,7 @@ angular.module('starter.services', [])
   var ref = new Firebase('https://environ-test.firebaseio.com/');
   var userRef = ref.child('users');
   var _users = $firebaseAuth(ref);
+  var email = null;
   
   return {
     login: function(obj, callback, errorCallback) {
@@ -14,7 +15,7 @@ angular.module('starter.services', [])
         }
         else{
           userRef.child(authData.uid).child('face').set(authData.password.profileImageURL);
-          this.email = authData.password.email;
+          email = authData.password.email;
           callback(authData);
         }
       });
@@ -33,9 +34,10 @@ angular.module('starter.services', [])
       });
     },
     changePassword: function(obj, callback, errorCallback){
-      if (!this.email)
+      if (!email)
         return false;
-      obj.email = this.email;
+      obj.email = email;
+      console.log(obj);
       ref.changePassword(obj, function(error){
         if (error) {
           errorCallback(error);
@@ -43,6 +45,7 @@ angular.module('starter.services', [])
           callback();
         }
       })
+      return true;
     },
     resetPassword: function(email, callback, errorCallback){
       ref.resetPassword(email, function(error){
