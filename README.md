@@ -21,7 +21,7 @@ __Research & User Experience Design__             :-Shanice Waterman
 #How to run Viron on your mobile device
 1. Install Ionic View:
 [![Get It on Google Play](http://www.scubaearth.com/uploadedImages/General_Site_Content/Outward_facing_Pages/google_play_icon.png {width=40px height=400px})](https://play.google.com/store/apps/details?id=com.ionic.viewapp&hl=en)
-[![Available on the iPhone](http://uncw.edu/admissions/images/AppStore.png {width=40px height=400px})](https://itunes.apple.com/us/app/ionic-view/id849930087?ls=1&mt=8)
+[![Available on the iPhone](http://uncw.edu/admissions/images/AppStore.png =200x40)](https://itunes.apple.com/us/app/ionic-view/id849930087?ls=1&mt=8)
 
 2. Navigate to Preview App and enter the code: *7E2397B1*
 
