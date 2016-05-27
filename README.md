@@ -2,7 +2,12 @@
 
 __Welcome to Viron!__
 
-Viron is an environmental app which aims to locate indiscriminate disposal of waste by giving the user the power to have an impact on their environment and giving them an easy outlet of getting involved.
+Viron is an environmental app which aims to locate indiscriminate disposal of waste by giving the user the power to have an impact on their environment and giving them an easy outlet of getting involved. Using the camera feature on mobile devices, pictures are taken in real time and are then posted, creating a geotag onto the map. 
+
+Features:
+ - Geo Tagging and Heat Map to show the areas which need the most attention
+ - Easy Camera Integration
+ - Available on iOS and Android
 
 #THE TEAM
 
