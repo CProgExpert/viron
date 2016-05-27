@@ -1,0 +1,62 @@
+#problems to be fixed
+
+#70bc6d <---------CODE HERE FOR THE BUTTON COLOR
+
+
+
+- report button(maybe, not high priority)
+- login tabs
+- change password
+ 
+
+
+
+- switch to post after uploading comment OR show comment in post after uploading
+- login page [after first 3 tries, highlght forgot password(maybe, a lot of code to do)]
+
+They may ask about the email if we have it set as valid email addresses.
+  maybe we can use an email text box
+
+
+
+TO-DO
+app testing
+business model
+presentation
+
+https://pixabay.com/en/plant-tree-spring-bloom-blossom-731169/
+https://pixabay.com/en/autumn-forest-fall-foliage-918430/
+https://pixabay.com/en/trees-water-river-landscape-nature-802053/
+
+
+Simple regular expression to validate email address
+ <script type="text/javascript">
+function validateEmail(email)
+{
+ var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+ if (reg.test(email)){
+ return true; }
+ else{
+ return false;
+ }
+} 
+</script> 
+
+Placeholder Code
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: pink;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: pink;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: pink;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: pink;
+}
+
+
+
+#fixed
+- camera orientation

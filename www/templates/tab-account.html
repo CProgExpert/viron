@@ -1,0 +1,43 @@
+<ion-view view-title="Account">
+  <ion-nav-buttons side="right">
+      <a class="button button-icon icon ion-android-exit" ng-click="logout()"></a>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <i class="icon ion-star"></i>
+        Community Points
+        <span class="badge badge-balanced">{{community_points}}</span>
+      </ion-item>
+      <ion-item>
+        <button class="button button-block button-balanced" ng-click="logout()">Sign-Out</button>
+      </ion-item>
+      <ion-item>
+        <form name="changepassword" novalidate>
+            <input type="text" name="userid" ng-model="userid" style="display:none"/>
+            <div class="card">
+              <div class="item item-divider">
+                Change Password
+              </div>
+              <label class="item item-input">
+                <input type="password" placeholder="Old Password" name="password" ng-model="password" required>
+              </label>
+              <label class="item item-input">
+                <input type="password" placeholder="New Password" name="newpassword" ng-model="newpassword" required>
+              </label>
+              <label class="item item-input">
+                <input type="password" placeholder="Confirm Password" name="conpassword" ng-model="conpassword" required data-password-verify="newpassword">
+              </label>
+              <div class="padding">
+                <p ng-show="changepassword.password.$error.required">* Old Password is required</p>
+                <p ng-show="changepassword.newpassword.$error.required">* Old Password is required</p>
+                <p ng-show="changepassword.conpassword.$error.required">* Confirm Password is required</p>
+                <p ng-show="changepassword.conpassword.$error.passwordVerify">* Passwords do not match</p>
+              </div>
+              <input type="submit" class="button button-block button-balanced" value="Submit" ng-disabled="comment[key].$invalid" ng-click="changePassword(changepassword)"/>
+            </div>
+          </form>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

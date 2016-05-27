@@ -1,0 +1,64 @@
+/* Empty. Add your own CSS if you like */
+
+#map {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll {
+    height: 100%;
+}
+.button-lightborder{
+  border-color: #ddd;
+  background-color: transparent;
+  color: #444;
+}
+
+.backg{
+    background-image: url("../img/autumn.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.backg ion-content{
+  background: rgba(0,0,0, 0.5);
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #555; }
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #555; }
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #555; }
+
+#login-list{
+  background: rgba(255, 255, 255, 0.8);
+  margin-top: 30%;
+}
+#login-list .item{
+  background: transparent;
+}
+
+#logo{
+  margin-top: 15%;
+  color:white;
+  /*font-family: 'Poppins', 'Muli', 'Roboto', 'Cambay', 'Open Sans', sans-serif;*/
+  font-family: 'Julius Sans One',sans-serif;
+  font-weight: 600;
+  font-size: 4em;
+}
+
+#post_content{
+    background: #555;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated{
+  color: #70bc6d;
+}
